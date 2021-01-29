@@ -1,0 +1,41 @@
+<div class="container">
+  <input type="file" #csvReader name="Upload CSV" id="txtFileUpload" (change)="uploadListener($event)" accept=".csv" />
+  <br>
+  <br>
+
+  <table id="dtBasicExample" class="table table-striped table-bordered table-hover" cellspacing="0"
+    *ngIf="records.length > 0" width="100%">
+    <thead>
+      <th colspan="6">
+        <div class="form-group form-inline">
+          Search Records by name:
+          <input class="form-control ml-2" type="text" name="searchTerm" [value]="searchTerm"
+            (input)="search($event.target.value)" />
+        </div>
+      </th>
+        </thead>
+    <tbody>
+      <tr *ngFor="let record of (records | pagination: filterObject); index as i">
+        <td>{{i + 1}} </td>
+        <td> {{record.firstName}} </td>
+        <td> {{record.lastName}} </td>
+        <td> {{record.age}} </td>
+        <td> {{record.position}} </td>
+        <td> {{record.mobile}} </td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <th colspan="6">
+        <div class="form-group">
+          <label for="exampleFormControlSelect2">Number Of Records Per Page</label>
+          <select class="form-control smart-select" id="exampleFormControlSelect2" (change)="updatePagination($event.target.value)">
+            <option *ngFor="let option of options" [selected]="option === DefaultPagination">
+              {{ option }}
+            </option>
+          </select>
+        </div>
+      </th>
+
+    </tfoot>
+  </table>
+</div>
